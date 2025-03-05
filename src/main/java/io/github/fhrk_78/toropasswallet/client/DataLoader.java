@@ -1,16 +1,17 @@
 package io.github.fhrk_78.toropasswallet.client;
 
-import io.github.fhrk_78.toropasswallet.client.data.RideHistory;
-import net.fabricmc.loader.impl.FabricLoaderImpl;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Range;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
+
+import io.github.fhrk_78.toropasswallet.client.data.RideHistory;
+import net.fabricmc.loader.impl.FabricLoaderImpl;
 
 public final class DataLoader {
     @Nullable
@@ -48,15 +49,9 @@ public final class DataLoader {
                 if (s.matches("^.*:=.*$")) {
                     String[] split = s.split(":=");
                     switch (split[0]) {
-                        case "balance":
-                            balance = Integer.parseInt(split[1]);
-                            break;
-                        case "totalPayment":
-                            totalPayment = Long.parseLong(split[1]);
-                            break;
-                            case "histories":
-                                histories = RideHistory.fromStringList(split[1]);
-                                break;
+                        case "balance" -> balance = Integer.parseInt(split[1]);
+                        case "totalPayment" -> totalPayment = Long.parseLong(split[1]);
+                        case "histories" -> histories = RideHistory.fromStringList(split[1]);
                     }
                 }
             });
@@ -64,7 +59,7 @@ public final class DataLoader {
     }
 
     public void save() {
-        String saveText = "balance:=" + balance + "\ntotalPayment:=" + totalPayment + "\n" +
+        String saveText = "balance:=" + balance + "\ntotalPayment:=" + totalPayment + "\nhistories:=" +
                 RideHistory.toString(histories);
         try {
             Files.writeString(saveTo, saveText, StandardOpenOption.CREATE);

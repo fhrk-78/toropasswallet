@@ -1,16 +1,17 @@
 package io.github.fhrk_78.toropasswallet.client;
 
+import org.lwjgl.glfw.GLFW;
+
 import io.github.fhrk_78.toropasswallet.Toropasswallet;
 import io.github.fhrk_78.toropasswallet.client.renderer.ToropassWalletApp;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public class ToropasswalletClient implements ClientModInitializer {
@@ -28,8 +29,11 @@ public class ToropasswalletClient implements ClientModInitializer {
                 "key.toropasswallet.category"
         ));
 
-        ClientReceiveMessageEvents.GAME.register((message, overlay) ->
-                ToroPassResponseParser.processIt(message.getString()));
+        ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
+            String string = message.getString();
+            if (string == null) return;
+            ToroPassResponseParser.processIt(string);
+        });
 
         ClientTickEvents.START_CLIENT_TICK.register(
         client -> {
