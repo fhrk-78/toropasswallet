@@ -12,7 +12,6 @@ public final class ToropassWalletApp extends Screen {
     public final short MARGIN = 15;
     public Identifier toropassT;
 
-    public final short balanceAndCardGap = 5;
     public TextWidget balanceTextWidget;
 
     public PaymentHistoryWidget paymentHistoryWidget;
@@ -42,7 +41,7 @@ public final class ToropassWalletApp extends Screen {
         addDrawableChild(balanceTextWidget);
         addDrawableChild(paymentHistoryWidget);
 
-        for (var history : DataLoader.getInstance().histories) {
+        for (var history : DataLoader.getInstance().histories.reversed()) {
             if (history.amount() == 0) continue;
             paymentHistoryWidget.addNewEntry(history);
         }

@@ -33,6 +33,7 @@ public final class DataLoader {
     private void tryInit() {
         if (balance == null) balance = 0;
         if (totalPayment == null) totalPayment = 0L;
+        if (histories == null) histories = new ArrayList<>();
         save();
     }
 
@@ -51,7 +52,8 @@ public final class DataLoader {
                     switch (split[0]) {
                         case "balance" -> balance = Integer.valueOf(split[1]);
                         case "totalPayment" -> totalPayment = Long.valueOf(split[1]);
-                        case "histories" -> histories = RideHistory.fromStringList(split[1]);
+                        case "histories" -> histories = split.length == 1 ? new ArrayList<>() :
+                            RideHistory.fromStringList(split[1]);
                     }
                 }
             });

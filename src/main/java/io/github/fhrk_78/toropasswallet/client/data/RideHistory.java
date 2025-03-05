@@ -48,7 +48,7 @@ public record RideHistory(
         ArrayList<RideHistory> list = new ArrayList<>();
         if (s.isEmpty()) return list;
         for (var v : s.split(";")) {
-            var res = fromString((String) v);
+            var res = fromString(v);
             if (res == null) continue;
             list.add(res);
         }

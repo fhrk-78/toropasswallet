@@ -19,7 +19,7 @@ public final class PaymentHistoryWidget extends AlwaysSelectedEntryListWidget<Pa
     }
 
     public void addNewEntry(RideHistory rh) {
-        addEntryToTop(new Entry(rh, client.textRenderer));
+        addEntry(new Entry(rh, client.textRenderer));
     }
 
     @Override

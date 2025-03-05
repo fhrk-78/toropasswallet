@@ -1,6 +1,7 @@
 package io.github.fhrk_78.toropasswallet.client;
 
 import io.github.fhrk_78.toropasswallet.client.data.RideHistory;
+import io.github.fhrk_78.toropasswallet.client.renderer.PaymentHudRenderer;
 
 import java.time.Instant;
 import java.util.regex.Matcher;
@@ -36,6 +37,7 @@ public final class ToroPassResponseParser {
         if (nyujoMatcher.find()) {
             ToropasswalletClient.beforeRide = DataLoader.getInstance().getBalance();
             ToropasswalletClient.beforeStationName = nyujoMatcher.group(1);
+            PaymentHudRenderer.show();
         }
         Matcher shutsujoMatcher = shutsujo.matcher(response);
         if (shutsujoMatcher.find()) {
@@ -44,6 +46,7 @@ public final class ToroPassResponseParser {
             DataLoader.getInstance().histories.add(new RideHistory(ToropasswalletClient.beforeRide, amount,
                     ToropasswalletClient.beforeStationName, to, Instant.now()));
             DataLoader.getInstance().save();
+            PaymentHudRenderer.show();
         }
 
         Matcher autoChargeMatcher = autoCharge.matcher(response);
@@ -63,6 +66,7 @@ public final class ToroPassResponseParser {
                     Instant.now()));
             DataLoader.getInstance().setBalance(DataLoader.getInstance().getBalance() + amount);
             DataLoader.getInstance().save();
+            PaymentHudRenderer.show();
         }
 
         if (response.equals("強制出場しました。")) {

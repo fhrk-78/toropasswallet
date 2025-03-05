@@ -1,5 +1,7 @@
 package io.github.fhrk_78.toropasswallet.client;
 
+import io.github.fhrk_78.toropasswallet.client.renderer.PaymentHudRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import org.lwjgl.glfw.GLFW;
 
 import io.github.fhrk_78.toropasswallet.Toropasswallet;
@@ -28,6 +30,9 @@ public class ToropasswalletClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_O,
                 "key.toropasswallet.category"
         ));
+
+        HudRenderCallback.EVENT.register(PaymentHudRenderer::render);
+        ClientTickEvents.START_CLIENT_TICK.register(PaymentHudRenderer::tick);
 
         ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
             String string = message.getString();
