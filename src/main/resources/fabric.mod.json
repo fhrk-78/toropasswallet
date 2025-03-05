@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "toropasswallet",
+  "version": "${version}",
+  "name": "toropasswallet",
+  "description": "ToroPassのウォレットアプリ",
+  "authors": [],
+  "contact": {},
+  "license": "Apache-2.0",
+  "icon": "assets/toropasswallet/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.fhrk_78.toropasswallet.client.ToropasswalletClient"
+    ],
+    "main": [
+      "io.github.fhrk_78.toropasswallet.Toropasswallet"
+    ]
+  },
+  "mixins": [
+    "toropasswallet.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
