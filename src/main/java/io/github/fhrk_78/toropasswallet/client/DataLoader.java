@@ -49,8 +49,8 @@ public final class DataLoader {
                 if (s.matches("^.*:=.*$")) {
                     String[] split = s.split(":=");
                     switch (split[0]) {
-                        case "balance" -> balance = Integer.parseInt(split[1]);
-                        case "totalPayment" -> totalPayment = Long.parseLong(split[1]);
+                        case "balance" -> balance = Integer.valueOf(split[1]);
+                        case "totalPayment" -> totalPayment = Long.valueOf(split[1]);
                         case "histories" -> histories = RideHistory.fromStringList(split[1]);
                     }
                 }

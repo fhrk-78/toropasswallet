@@ -1,5 +1,7 @@
 package io.github.fhrk_78.toropasswallet.client.renderer;
 
+import java.util.List;
+
 import io.github.fhrk_78.toropasswallet.client.data.RideHistory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -7,18 +9,22 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.text.Text;
 
-import java.util.List;
-
 public final class PaymentHistoryWidget extends AlwaysSelectedEntryListWidget<PaymentHistoryWidget.Entry> {
+    private static final int MARGIN = 5;
+
     public PaymentHistoryWidget(MinecraftClient minecraftClient, int width, int height, int x, int y) {
         super(minecraftClient, width, height, y,
                 (Entry.MARGIN << 1) + (minecraftClient.textRenderer.fontHeight << 1) + Entry.GAP);
         setX(x);
     }
 
-    public void updateEntries(List<RideHistory> entries) {
-        clearEntries();
-        entries.forEach(v -> addEntryToTop(new Entry(v, client.textRenderer)));
+    public void addNewEntry(RideHistory rh) {
+        addEntryToTop(new Entry(rh, client.textRenderer));
+    }
+
+    @Override
+    public int getRowWidth() {
+        return width - (MARGIN << 1);
     }
 
     public static final class Entry extends AlwaysSelectedEntryListWidget.Entry<Entry> {
@@ -43,7 +49,6 @@ public final class PaymentHistoryWidget extends AlwaysSelectedEntryListWidget<Pa
             String showResult = "差額: " + history.amount() + "トロポ / 残高: " +
                     (history.before() + history.amount()) + "トロポ";
             if (history.from().equals("#AUTOCHARGE")) {
-                if (history.amount() <= 0) return;
                 ctx.drawTextWrapped(textRenderer, Text.literal("オートチャージ"), x + MARGIN, y + MARGIN,
                         entryWidth - (MARGIN << 1), 0xffffffff);
                 ctx.drawTextWrapped(textRenderer, Text.literal(showResult), x + MARGIN,

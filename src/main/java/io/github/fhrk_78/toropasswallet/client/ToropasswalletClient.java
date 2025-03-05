@@ -17,7 +17,7 @@ import net.minecraft.client.util.InputUtil;
 public class ToropasswalletClient implements ClientModInitializer {
     private KeyBinding openWalletAppKey;
 
-    public static Integer beforeRide = -1;
+    public static Integer beforeRide = 0;
     public static String beforeStationName = "";
 
     @Override
