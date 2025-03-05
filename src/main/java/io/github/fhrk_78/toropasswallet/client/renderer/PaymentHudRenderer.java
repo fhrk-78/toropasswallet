@@ -16,11 +16,11 @@ public class PaymentHudRenderer {
     public static void render(DrawContext ctx, RenderTickCounter renderTickCounter) {
         int height = ctx.getScaledWindowHeight();
 
-        int overlayBasicSize = height >> 1;
-        int overlaySize = (int) (percentage / 100f * overlayBasicSize);
+        int overlaySize = height >> 1;
+        int overlayPos = (int) (percentage / 100f * overlaySize);
 
-        ctx.drawTexture(paymentT, MARGIN, height - overlaySize, 0, 0,
-                overlayBasicSize, overlaySize, overlayBasicSize, overlaySize);
+        ctx.drawTexture(paymentT, MARGIN, height - overlayPos, 0, 0,
+                overlaySize, overlaySize, overlaySize, overlaySize);
     }
 
     public static void tick(MinecraftClient client) {
@@ -31,7 +31,7 @@ public class PaymentHudRenderer {
     }
 
     public static void show() {
-        tickCounter = 20;
+        tickCounter = 100;
         shouldIShow = true;
     }
 }

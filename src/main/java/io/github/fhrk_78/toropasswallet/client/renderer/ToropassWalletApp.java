@@ -9,14 +9,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public final class ToropassWalletApp extends Screen {
-    public final short MARGIN = 15;
+    public final short MARGIN = 32;
     public Identifier toropassT;
 
     public TextWidget balanceTextWidget;
 
     public PaymentHistoryWidget paymentHistoryWidget;
 
-    final int CONTENT_GAP = 5;
+    final int CONTENT_GAP = 12;
     int CONTENT_WIDTH, CONTENT_HEIGHT, CARD_HEIGHT;
 
     public ToropassWalletApp() {
