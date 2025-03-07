@@ -1,7 +1,5 @@
 package io.github.fhrk_78.toropasswallet.client.renderer;
 
-import java.util.List;
-
 import io.github.fhrk_78.toropasswallet.client.data.RideHistory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -63,6 +61,12 @@ public final class PaymentHistoryWidget extends AlwaysSelectedEntryListWidget<Pa
             } else if (history.to().equals("#FORCEEXIT")) {
                 ctx.drawTextWrapped(textRenderer, Text.literal(history.from() + " (強制出場)"), x + MARGIN,
                         y + MARGIN, entryWidth - (MARGIN << 1), 0xffffffff);
+            } else if (history.from().equals("#ETC1")) {
+                ctx.drawTextWrapped(textRenderer, Text.literal("ETC通過"), x + MARGIN,
+                        y + MARGIN, entryWidth - (MARGIN << 1), 0xffffffff);
+                ctx.drawTextWrapped(textRenderer, Text.literal(showResult), x + MARGIN,
+                        y + MARGIN + textRenderer.fontHeight + GAP, entryWidth - (MARGIN << 1),
+                        0xff888888);
             } else {
                 ctx.drawTextWrapped(textRenderer, Text.literal(history.from() + "→" + history.to()),
                         x + MARGIN, y + MARGIN, entryWidth - (MARGIN << 1), 0xffffffff);

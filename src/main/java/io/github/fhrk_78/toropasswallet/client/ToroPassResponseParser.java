@@ -17,6 +17,8 @@ public final class ToroPassResponseParser {
     private static final Pattern zandaka = Pattern.compile("^残高: (\\d+)トロポ$");
     private static final Pattern genzaiZandaka = Pattern.compile("^現在の残高: (\\d+)トロポ$");
 
+    private static final Pattern etcExit = Pattern.compile("^通過できます。利用料金は(\\d+)トロポです。$");
+
     public static void processIt(String response) {
         Matcher zandakaMatcher = zandaka.matcher(response);
         if (zandakaMatcher.find()) {
@@ -67,6 +69,16 @@ public final class ToroPassResponseParser {
             DataLoader.getInstance().setBalance(DataLoader.getInstance().getBalance() + amount);
             DataLoader.getInstance().save();
             PaymentHudRenderer.show();
+        }
+
+        Matcher etcExitMatcher = etcExit.matcher(response);
+        if (etcExitMatcher.find()) {
+            int balance = DataLoader.getInstance().getBalance();
+            int amount = Integer.parseInt(etcExitMatcher.group(1));
+            DataLoader.getInstance().histories.add(new RideHistory(balance, balance - amount, "#ETC1",
+                    "", Instant.now()));
+            DataLoader.getInstance().setBalance(balance - amount);
+            DataLoader.getInstance().save();
         }
 
         if (response.equals("強制出場しました。")) {
